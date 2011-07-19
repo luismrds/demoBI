@@ -1,0 +1,27 @@
+<h1>Listing medicions</h1>
+
+<table>
+  <tr>
+    <th>Valor</th>
+    <th>Fecha</th>
+    <th>Indicador</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @medicions.each do |medicion| %>
+  <tr>
+    <td><%= medicion.valor %></td>
+    <td><%= medicion.fecha_id %></td>
+    <td><%= medicion.indicador_id %></td>
+    <td><%= link_to 'Show', medicion %></td>
+    <td><%= link_to 'Edit', edit_medicion_path(medicion) %></td>
+    <td><%= link_to 'Destroy', medicion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Medicion', new_medicion_path %>

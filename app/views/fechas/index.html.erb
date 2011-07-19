@@ -1,0 +1,25 @@
+<h1>Listing fechas</h1>
+
+<table>
+  <tr>
+    <th>Mes</th>
+    <th>Anho</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @fechas.each do |fecha| %>
+  <tr>
+    <td><%= fecha.mes %></td>
+    <td><%= fecha.anho %></td>
+    <td><%= link_to 'Show', fecha %></td>
+    <td><%= link_to 'Edit', edit_fecha_path(fecha) %></td>
+    <td><%= link_to 'Destroy', fecha, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Fecha', new_fecha_path %>

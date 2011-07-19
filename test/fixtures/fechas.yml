@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  mes: 1
+  anho: 1
+
+two:
+  mes: 1
+  anho: 1

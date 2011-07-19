@@ -1,0 +1,26 @@
+<h1>Listing indicadors</h1>
+
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Perspectiva</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @indicadors.each do |indicador| %>
+  <tr>
+    <td><%= indicador.nombre %></td>
+    <td><%= indicador.perspectiva.nombre %></td>
+    <td><%= link_to 'Show', indicador %></td>
+    <td><%= link_to 'Edit', edit_indicador_path(indicador) %></td>
+    <td><%= link_to 'Destroy', indicador, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Visualizar', pvisualizar_path(indicador.id) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nuevo Indicador', new_indicador_path %>

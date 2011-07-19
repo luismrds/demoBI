@@ -1,0 +1,25 @@
+<%= form_for(@perspectiva) do |f| %>
+  <% if @perspectiva.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@perspectiva.errors.count, "error") %> prohibited this perspectiva from being saved:</h2>
+
+      <ul>
+      <% @perspectiva.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombre %><br />
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :dimension_id %><br />
+    <%= f.text_field :dimension_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

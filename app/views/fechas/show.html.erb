@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Mes:</b>
+  <%= @fecha.mes %>
+</p>
+
+<p>
+  <b>Anho:</b>
+  <%= @fecha.anho %>
+</p>
+
+
+<%= link_to 'Edit', edit_fecha_path(@fecha) %> |
+<%= link_to 'Back', fechas_path %>
