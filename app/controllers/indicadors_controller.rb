@@ -84,7 +84,7 @@ class IndicadorsController < ApplicationController
   def pvisualizar
     @indicador = Indicador.find(params[:id])
     mediciones = Medicion.where(" indicador_id = ? ", @indicador.id )
-    data_table = GoogleVisualr::DataTable.new
+    combo = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Mes')
     data_table.new_column('number', @indicador.nombre)
     data_table.add_rows([
@@ -115,6 +115,7 @@ class IndicadorsController < ApplicationController
     @indicadorazul = Indicador.find(params[:ida])
     medicionesr = Medicion.where(" indicador_id = ? ", @indicadorrojo.id )
     medicionesa = Medicion.where(" indicador_id = ? ", @indicadorazul.id )
+    
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Mes')
     data_table.new_column('number', @indicadorrojo.nombre)
@@ -134,8 +135,46 @@ class IndicadorsController < ApplicationController
       ['12', medicionesr[11].valor, medicionesa[11].valor]
     ])
     
-      option = { :width => 600, :height => 240, :title => @indicadorazul.nombre + ' ' + @indicadorazul.nombre + ': Anho 2011', :hAxis => {:title => 'Mes'}, :titleTextStyle => {:color => '#FF0000'} }
-      @chart = GoogleVisualr::Interactive::AreaChart.new(data_table, option) 
+      option = { :width => 600, :height => 240, :title => @indicadorrojo.nombre + ' vs ' + @indicadorazul.nombre + ': Anho 2011', :hAxis => {:title => 'Mes'}, :titleTextStyle => {:color => '#FF0000'} }
+      @lineas = GoogleVisualr::Interactive::AreaChart.new(data_table, option) 
+      
+     tablabarras = GoogleVisualr::DataTable.new
+      tablabarras.new_column('string', 'Year')
+      tablabarras.new_column('number', @indicadorrojo.nombre)
+      tablabarras.new_column('number', @indicadorazul.nombre)
+      tablabarras.add_rows(4)
+      tablabarras.set_cell(0, 0, 'Enero')
+      tablabarras.set_cell(0, 1, medicionesa[0].valor)
+      tablabarras.set_cell(0, 2, medicionesr[0].valor)
+      tablabarras.set_cell(1, 0, 'Febrero')
+      tablabarras.set_cell(1, 1, medicionesa[1].valor)
+      tablabarras.set_cell(1, 2, medicionesr[1].valor)
+      tablabarras.set_cell(2, 0, 'Marzo')
+      tablabarras.set_cell(2, 1, medicionesa[2].valor)
+      tablabarras.set_cell(2, 2, medicionesr[2].valor)
+      tablabarras.set_cell(3, 0, 'Abril')
+      tablabarras.set_cell(3, 1, medicionesa[3].valor)
+      tablabarras.set_cell(3, 2, medicionesr[3].valor)
+    
+      opts = { :width => 400, :height => 240, :title => @indicadorrojo.nombre + ' vs ' + @indicadorazul.nombre + ': Anho 2011', :hAxis => { :title => 'Year', :titleTextStyle => {:color => 'red'}} }
+      @barras = GoogleVisualr::Interactive::ColumnChart.new(tablabarras, opts) 
+      
+      
+       combo = GoogleVisualr::DataTable.new
+  combo.new_column('string', 'month' )
+  combo.new_column('number', @indicadorrojo.nombre )
+  combo.new_column('number', @indicadorazul.nombre )
+  combo.new_column('number', 'Diferencia' )
+  combo.add_rows( [
+    ['1', medicionesa[0].valor, medicionesr[0].valor,  (medicionesr[0].valor - medicionesa[0].valor).abs],
+    ['2', medicionesa[1].valor, medicionesr[1].valor,  (medicionesa[1].valor - medicionesr[1].valor).abs],
+    ['3', medicionesa[2].valor, medicionesr[2].valor,  (medicionesa[2].valor - medicionesr[2].valor).abs],
+    ['4', medicionesa[3].valor, medicionesr[3].valor,  (medicionesa[3].valor - medicionesr[3].valor).abs],
+    ['5', medicionesa[4].valor, medicionesr[4].valor,  (medicionesa[4].valor - medicionesr[4].valor).abs]
+  ] )
+
+  opts = { :width => 700, :height => 400, :title => @indicadorrojo.nombre + ' vs ' + @indicadorazul.nombre + ': Anho 2011', :vAxis => {:title => 'Unidad'}, :hAxis => {:title => 'Month'}, :seriesType => 'bars', :series => {'2' => {:type => 'line'}} }
+  @combo = GoogleVisualr::Interactive::ComboChart.new(combo, opts)
   end
 end
 
