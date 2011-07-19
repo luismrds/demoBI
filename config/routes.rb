@@ -11,7 +11,7 @@ Demo::Application.routes.draw do
   resources :dimensions
   
   match "indicadors/pvisualizar/:id" => "indicadors#pvisualizar", :as => :pvisualizar
-  match "indicadors/versus/:idr/:ida" => "indicadors#versus", :as => :pvisualizar
+  match "indicadors/versus/:idr/:ida" => "indicadors#versus", :as => :versus
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
