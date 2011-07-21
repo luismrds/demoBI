@@ -172,9 +172,23 @@ class IndicadorsController < ApplicationController
     ['4', medicionesa[3].valor, medicionesr[3].valor,  (medicionesa[3].valor - medicionesr[3].valor).abs],
     ['5', medicionesa[4].valor, medicionesr[4].valor,  (medicionesa[4].valor - medicionesr[4].valor).abs]
   ] )
-
+  
   opts = { :width => 700, :height => 400, :title => @indicadorrojo.nombre + ' vs ' + @indicadorazul.nombre + ': Anho 2011', :vAxis => {:title => 'Unidad'}, :hAxis => {:title => 'Month'}, :seriesType => 'bars', :series => {'2' => {:type => 'line'}} }
   @combo = GoogleVisualr::Interactive::ComboChart.new(combo, opts)
+  
+  tablamedidor = GoogleVisualr::DataTable.new
+  tablamedidor.new_column('string' , 'Label')
+  tablamedidor.new_column('number' , 'Value')
+  tablamedidor.add_rows(3)
+  tablamedidor.set_cell(0, 0, @indicadorrojo.nombre )
+  tablamedidor.set_cell(0, 1, 80)
+  tablamedidor.set_cell(1, 0, 'Cobertura' )
+  tablamedidor.set_cell(1, 1, 55)
+
+  opts = { :width => 400, :height => 120, :redFrom => 90, :redTo => 100, :yellowFrom => 75, :yellowTo => 90, :minorTicks => 5 }
+  @medidor = GoogleVisualr::Interactive::Gauge.new(tablamedidor, opts)
+
+  
   end
 end
 
